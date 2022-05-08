@@ -1,0 +1,11 @@
+/.vscode
+/obj
+/Library
+/Logs
+/Temp
+/Output
+/Files
+Another LightBot - Code Hour.code-workspace
+Another LightBot - Code Hour.sln
+Assembly-CSharp-Editor.csproj
+Assembly-CSharp.csproj
