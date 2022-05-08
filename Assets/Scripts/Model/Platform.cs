@@ -5,8 +5,11 @@ namespace Game.Model
     public class Platform : MonoBehaviour
     {
         #region Variables
-            [SerializeField]
+            [SerializeField, Min(1)]
             protected int height = 1;
+
+            [SerializeField]
+            protected Position position;
 
             [SerializeField]
             private GameObject block;
@@ -18,7 +21,12 @@ namespace Game.Model
             public int Height
             {
                 get { return height; }
-                set { height = value; }
+                set { height = (value > 0) ? value : 1; }
+            }
+
+            public Position Position
+            {
+                get { return position; }
             }
         #endregion
 
