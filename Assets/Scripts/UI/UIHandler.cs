@@ -35,6 +35,11 @@ namespace Game.UI
                 Destroy(uiOperation.gameObject);
                 GameManager.Instance.RemoveOperation(uiOperation.Operation);
             }
+
+            public void Run ()
+            {
+                GameManager.Instance.RunCode();
+            }
         #endregion
     }
 }

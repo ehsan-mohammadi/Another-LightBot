@@ -30,6 +30,21 @@ namespace Game.Controller
             {
                 botOperations.Remove(operation);
             }
+
+            public void RunCode ()
+            {
+                StartCoroutine(DoRunCode());
+            }
+
+            private System.Collections.IEnumerator DoRunCode ()
+            {
+                foreach (BotOperation operation in botOperations)
+                {
+                    yield return operation.Run();
+                }
+
+                yield return new WaitForFixedUpdate();
+            }
         #endregion
     }
 }

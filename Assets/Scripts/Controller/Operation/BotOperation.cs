@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections;
 
 namespace Game.Controller.Operation
 {
@@ -6,9 +7,18 @@ namespace Game.Controller.Operation
 
     public abstract class BotOperation : MonoBehaviour
     {
+        #region Variables
+            protected BotController botController;
+        #endregion
+
         #region Methods
+            private void Awake ()
+            {
+                botController = GameObject.FindObjectOfType<BotController>();
+            }
+
             public abstract bool IsValid ();
-            public abstract void Run ();
+            public abstract IEnumerator Run ();
         #endregion
     }
 }

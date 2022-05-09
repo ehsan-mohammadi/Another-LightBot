@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Linq;
 using System.Collections.Generic;
 
 namespace Game.Controller
@@ -31,6 +32,14 @@ namespace Game.Controller
                 {
                     board.Add(platform.Position, platform);
                 }
+            }
+
+            public Vector3 GetPlatformPosition (Position position)
+            {
+                if (board.Keys.Contains(position))
+                    return board[position].transform.position;
+                
+                return -Vector3.one;
             }
         #endregion
     }

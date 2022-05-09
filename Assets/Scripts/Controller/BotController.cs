@@ -13,25 +13,28 @@ namespace Game.Controller
             private float speed = 5f;
 
             [SerializeField]
-            private Position currentPosition;
+            internal Position currentPosition;
 
             [SerializeField]
-            private Direction currentDirection = Direction.FORWARD;
+            internal Direction currentDirection = Direction.FORWARD;
 
-            private enum Direction { FORWARD, BACKWARD, LEFT, RIGHT }
+            internal enum Direction { FORWARD, BACKWARD, LEFT, RIGHT }
         #endregion
 
         #region Methods
-            private void Start ()
+            internal System.Collections.IEnumerator Walk (Position nextPosition)
             {
-                // operations = new List<BotOperation>();
-                // operations.Add(new WalkOperation());
-                // RunOperation(operations[0]);
-            }
+                Vector3 targetPosition = BoardManager.Instance.GetPlatformPosition(nextPosition);
 
-            private void RunOperation (BotOperation botOperation)
-            {
-                botOperation.Run();
+                while ((this.transform.position - targetPosition).magnitude > 0.05f)
+                {
+                    this.transform.position = Vector3.Lerp(this.transform.position, targetPosition, 0.125f);
+                    yield return new WaitForFixedUpdate();
+                }
+
+                this.transform.position = targetPosition;
+                currentPosition = nextPosition;
+                yield return new WaitForFixedUpdate();
             }
         #endregion
     }
