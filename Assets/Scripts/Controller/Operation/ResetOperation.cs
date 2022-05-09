@@ -12,6 +12,7 @@ namespace Game.Controller.Operation
 
             public override IEnumerator Run ()
             {
+                BoardManager.Instance.ResetAllTargetPlatforms();
                 botController.Reset();
                 yield return null;
             }

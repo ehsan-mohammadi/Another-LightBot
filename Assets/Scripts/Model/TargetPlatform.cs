@@ -30,6 +30,14 @@ namespace Game.Model
                 materials[2] = isSwitchOn ? switchOn : switchOff;
                 lastBlock.GetComponent<MeshRenderer>().materials = materials;
             }
+
+            public void Reset ()
+            {
+                isSwitchOn = false;
+                Material[] materials = lastBlock.GetComponent<MeshRenderer>().materials;
+                materials[2] = isSwitchOn ? switchOn : switchOff;
+                lastBlock.GetComponent<MeshRenderer>().materials = materials;
+            }
         #endregion
     }
 }

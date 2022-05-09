@@ -65,6 +65,15 @@ namespace Game.Controller
 
                 return null;
             }
+
+            public void ResetAllTargetPlatforms ()
+            {
+                foreach (Platform platform in board.Values)
+                {
+                    if (platform.GetComponent<TargetPlatform>())
+                        platform.GetComponent<TargetPlatform>().Reset();
+                }
+            }
         #endregion
     }
 }
