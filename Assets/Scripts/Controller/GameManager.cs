@@ -3,12 +3,13 @@ using System.Collections.Generic;
 
 namespace Game.Controller
 {
+    using Model;
     using Operation;
 
     public class GameManager : MonoBehaviour
     {
         #region Variables
-            private List<BotOperation> botOperations = new List<BotOperation>();
+            private Procedure mainProcedure = new Procedure();
 
             public static GameManager Instance;
         #endregion
@@ -23,12 +24,12 @@ namespace Game.Controller
 
             public void AddOperation (BotOperation operation)
             {
-                botOperations.Add(operation);
+                mainProcedure.Add(operation);
             }
 
             public void RemoveOperation (BotOperation operation)
             {
-                botOperations.Remove(operation);
+                mainProcedure.Remove(operation);
             }
 
             public void ResetCode ()
@@ -51,7 +52,7 @@ namespace Game.Controller
 
             private System.Collections.IEnumerator DoRunCode ()
             {
-                foreach (BotOperation operation in botOperations)
+                foreach (BotOperation operation in mainProcedure.Operations)
                 {
                     yield return operation.Run();
                 }
