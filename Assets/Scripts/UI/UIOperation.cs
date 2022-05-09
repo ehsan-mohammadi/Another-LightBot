@@ -2,7 +2,10 @@
 
 namespace Game.UI
 {
-    public class OperationClickHandler : MonoBehaviour
+    using Controller.Operation;
+
+    [RequireComponent(typeof(BotOperation))]
+    public class UIOperation : MonoBehaviour
     {
         #region Variables
             private bool isAdded = false;
@@ -13,6 +16,11 @@ namespace Game.UI
             {
                 get { return isAdded; }
                 set { isAdded = value; }
+            }
+
+            internal BotOperation Operation
+            {
+                get { return this.GetComponent<BotOperation>(); }
             }
         #endregion
 

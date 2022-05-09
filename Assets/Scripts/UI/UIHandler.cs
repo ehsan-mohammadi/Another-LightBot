@@ -2,6 +2,8 @@
 
 namespace Game.UI
 {
+    using Controller;
+
     public class UIHandler : MonoBehaviour
     {
         #region Variables
@@ -19,16 +21,19 @@ namespace Game.UI
                 Instance = this;
             }
 
-            internal void AddOperation (OperationClickHandler operation)
+            internal void AddOperation (UIOperation uiOperation)
             {
-                OperationClickHandler instance = Instantiate(operation
+                UIOperation instance = Instantiate(uiOperation
                     , Vector3.zero, Quaternion.identity, mainProc);
                 instance.IsAdded = true;
+
+                GameManager.Instance.AddOperation(instance.Operation);
             }
 
-            internal void RemoveOperation (OperationClickHandler operation)
+            internal void RemoveOperation (UIOperation uiOperation)
             {
-                Destroy(operation.gameObject);
+                Destroy(uiOperation.gameObject);
+                GameManager.Instance.RemoveOperation(uiOperation.Operation);
             }
         #endregion
     }

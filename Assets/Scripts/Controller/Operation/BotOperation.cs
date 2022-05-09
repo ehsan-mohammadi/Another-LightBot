@@ -1,8 +1,10 @@
-﻿namespace Game.Controller.Operation
-{
-    public enum Movement { WALK, JUMP, TURN_LEFT, TURN_RIGHT };
+﻿using UnityEngine;
 
-    public abstract class BotOperation
+namespace Game.Controller.Operation
+{
+    public enum Movement { WALK, JUMP, LAMP, TURN_LEFT, TURN_RIGHT };
+
+    public abstract class BotOperation : MonoBehaviour
     {
         #region Methods
             public abstract bool IsValid ();
