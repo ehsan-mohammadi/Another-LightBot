@@ -15,7 +15,7 @@ namespace Game.Controller
             [SerializeField]
             internal Direction currentDirection = Direction.FORWARD;
 
-            internal enum Direction { FORWARD, BACKWARD, LEFT, RIGHT };
+            internal enum Direction { FORWARD, RIGHT, BACKWARD, LEFT };
             private float threshold = 0.05f;
             private float deltaTime = 0.125f;
             private Position initialPlatformPosition;
@@ -56,24 +56,28 @@ namespace Game.Controller
                 Vector3 targetAngles = this.transform.eulerAngles + new Vector3(0, 90, 0);
                 while ((this.transform.eulerAngles - targetAngles).magnitude > threshold)
                 {
-                    this.transform.eulerAngles = Vector3.Lerp(this.transform.eulerAngles, targetAngles, deltaTime);
+                    this.transform.rotation = Quaternion.Lerp(this.transform.rotation
+                        , Quaternion.Euler(targetAngles), deltaTime);
                     yield return new WaitForFixedUpdate();
                 }
 
                 this.transform.eulerAngles = targetAngles;
+                currentDirection = (Direction)((int)(currentDirection + 1) % 4);
                 yield return new WaitForFixedUpdate();
             }
 
             internal System.Collections.IEnumerator TurnLeft ()
             {
                 Vector3 targetAngles = this.transform.eulerAngles - new Vector3(0, 90, 0);
-                while ((this.transform.eulerAngles - targetAngles).magnitude > threshold)
+                while (((this.transform.eulerAngles - Vector3.up * 360) - targetAngles).magnitude > threshold)
                 {
-                    this.transform.eulerAngles = Vector3.Lerp(this.transform.eulerAngles, targetAngles, deltaTime);
+                    this.transform.rotation = Quaternion.Lerp(this.transform.rotation
+                        , Quaternion.Euler(targetAngles), deltaTime);
                     yield return new WaitForFixedUpdate();
                 }
 
                 this.transform.eulerAngles = targetAngles;
+                currentDirection = (Direction)((int)(currentDirection + 3) % 4);
                 yield return new WaitForFixedUpdate();
             }
         #endregion
