@@ -35,8 +35,14 @@ namespace Game.Controller.Operation
                 }
 
                 if (BoardManager.Instance.IsPlatformExists(nextPosition))
-                    yield return botController.Walk(nextPosition
-                        , BoardManager.Instance.GetPlatformWorldPosition(nextPosition));
+                {
+                    Platform currentPlatform = BoardManager.Instance.GetPlatform(botController.currentPosition);
+                    Platform nextPlatform = BoardManager.Instance.GetPlatform(nextPosition);
+
+                    if (currentPlatform.Height == nextPlatform.Height)
+                        yield return botController.Walk(nextPosition
+                            , BoardManager.Instance.GetPlatformWorldPosition(nextPosition));
+                }
             }
         #endregion
     }
