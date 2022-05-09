@@ -1,8 +1,10 @@
 ﻿using UnityEngine;
+using System.Collections.Generic;
 
 namespace Game.Controller
 {
     using Model;
+    using Operation;
 
     public class BotController : MonoBehaviour
     {
@@ -16,18 +18,22 @@ namespace Game.Controller
             [SerializeField]
             private Direction currentDirection = Direction.FORWARD;
 
+            private List<BotOperation> operations;
+
             private enum Direction { FORWARD, BACKWARD, LEFT, RIGHT }
         #endregion
 
         #region Methods
-            private void Update ()
+            private void Start ()
             {
-                
+                operations = new List<BotOperation>();
+                operations.Add(new WalkOperation());
+                RunOperation(operations[0]);
             }
 
-            private void Move ()
+            private void RunOperation (BotOperation botOperation)
             {
-
+                botOperation.Run();
             }
         #endregion
     }
