@@ -80,6 +80,12 @@ namespace Game.Controller
                 currentDirection = (Direction)((int)(currentDirection + 3) % 4);
                 yield return new WaitForFixedUpdate();
             }
+
+            internal System.Collections.IEnumerator Switch (TargetPlatform targetPlatform)
+            {
+                targetPlatform.Switch();
+                yield return new WaitForFixedUpdate();
+            }
         #endregion
     }
 }

@@ -10,6 +10,8 @@ namespace Game.Model
 
             [SerializeField]
             private Material switchOn;
+
+            private bool isSwitchOn = false;
         #endregion
 
         #region Methods
@@ -19,6 +21,14 @@ namespace Game.Model
                 for (int i = 0; i < height; i++)
                     Gizmos.DrawWireCube(this.transform.position + (offset * i)
                         , Vector3.one - offset);
+            }
+
+            public void Switch ()
+            {
+                isSwitchOn = !isSwitchOn;
+                Material[] materials = lastBlock.GetComponent<MeshRenderer>().materials;
+                materials[2] = isSwitchOn ? switchOn : switchOff;
+                lastBlock.GetComponent<MeshRenderer>().materials = materials;
             }
         #endregion
     }

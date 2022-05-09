@@ -15,6 +15,7 @@ namespace Game.Model
             private GameObject block;
             
             protected static readonly Vector3 offset = new Vector3(0, 0.5f, 0);
+            protected GameObject lastBlock;
         #endregion
 
         #region SetterGetters
@@ -40,7 +41,7 @@ namespace Game.Model
             {
                 for (int i = 0; i < height; i++)
                 {
-                    Instantiate(block
+                    lastBlock = Instantiate(block
                         , this.transform.position + (offset * i)
                         , Quaternion.identity
                         , this.transform);

@@ -3,7 +3,7 @@ using System.Collections;
 
 namespace Game.Controller.Operation
 {
-    public enum Movement { WALK, JUMP, LAMP, TURN_LEFT, TURN_RIGHT };
+    public enum Movement { WALK, JUMP, SWITCH, TURN_LEFT, TURN_RIGHT };
 
     public abstract class BotOperation : MonoBehaviour
     {
