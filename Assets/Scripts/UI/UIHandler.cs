@@ -83,17 +83,17 @@ namespace Game.UI
             public void OnProc (Transform caller)
             {
                 DeactiveAllProcs();
-                caller.parent.GetComponent<Image>().color = colorProcActive;
+                caller.parent.parent.parent.GetComponent<Image>().color = colorProcActive;
                 activeProc = caller;
             }
 
             private void DeactiveAllProcs ()
             {
-                mainProc.parent.GetComponent<Image>().color =  colorProcDeactive;
+                mainProc.parent.parent.parent.GetComponent<Image>().color =  colorProcDeactive;
 
                 foreach (Transform proc in procs)
                 {
-                    proc.parent.GetComponent<Image>().color = colorProcDeactive;
+                    proc.parent.parent.parent.GetComponent<Image>().color = colorProcDeactive;
                 }
             }
 

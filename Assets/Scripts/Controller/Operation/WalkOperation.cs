@@ -41,7 +41,7 @@ namespace Game.Controller.Operation
 
                     if (currentPlatform.Height == nextPlatform.Height)
                         yield return botController.Walk(nextPosition
-                            , BoardManager.Instance.GetPlatformWorldPosition(nextPosition));
+                            , nextPlatform.lastBlock.transform.position);
                 }
             }
         #endregion
