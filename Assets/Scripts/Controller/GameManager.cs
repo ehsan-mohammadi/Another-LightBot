@@ -1,9 +1,11 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Game.Controller
 {
     using Model;
     using Operation;
+    using UI;
 
     public class GameManager : MonoBehaviour
     {
@@ -14,6 +16,7 @@ namespace Game.Controller
             private Procedure mainProcedure = new Procedure();
             private Procedure[] subProcedures;
             public static GameManager Instance;
+            private static int level = 0;
         #endregion
 
         #region SetterGetters
@@ -40,6 +43,24 @@ namespace Game.Controller
                 {
                     subProcedures[i] = new Procedure();
                 }
+            }
+
+            public void Finish ()
+            {
+                UIHandler.Instance.ShowFinish();
+                StopAllCoroutines();
+            }
+
+            public void LoadNextLevel ()
+            {
+                if (level < SceneManager.sceneCountInBuildSettings - 1)
+                    LoadLevel(++level);
+            }
+
+            public static void LoadLevel (int index)
+            {
+                SceneManager.LoadScene(index);
+                level = index;
             }
 
             public void AddOperation (BotOperation operation)

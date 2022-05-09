@@ -86,8 +86,6 @@ namespace Game.Controller
                     yield return new WaitForFixedUpdate();
                 }
 
-                Debug.Log("NO");
-
                 this.transform.eulerAngles = targetAngles;
                 currentDirection = (Direction)((int)(currentDirection + 3) % 4);
                 yield return new WaitForFixedUpdate();

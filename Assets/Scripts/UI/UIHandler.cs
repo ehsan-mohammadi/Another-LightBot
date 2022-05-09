@@ -4,7 +4,6 @@ using UnityEngine.UI;
 namespace Game.UI
 {
     using Controller;
-    using Controller.Operation;
 
     public class UIHandler : MonoBehaviour
     {
@@ -26,6 +25,9 @@ namespace Game.UI
 
             [SerializeField]
             private Color colorProcDeactive;
+
+            [SerializeField]
+            private GameObject panelFinish;
 
             public static UIHandler Instance;
             public Transform activeProc;
@@ -106,6 +108,21 @@ namespace Game.UI
                 }
 
                 return -1;
+            }
+
+            public void ShowFinish ()
+            {
+                panelFinish.SetActive(true);
+            }
+
+            public void NextLevel ()
+            {
+                GameManager.Instance.LoadNextLevel();
+            }
+
+            public void BackToMain ()
+            {
+                GameManager.LoadLevel(0);
             }
         #endregion
     }

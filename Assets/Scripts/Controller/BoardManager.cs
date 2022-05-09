@@ -9,6 +9,7 @@ namespace Game.Controller
     {
         #region Variables
             private Dictionary<Position, Platform> board;
+            private List<TargetPlatform> targets;
             public static BoardManager Instance;
         #endregion
 
@@ -26,10 +27,14 @@ namespace Game.Controller
             {
                 Platform[] platforms = GameObject.FindObjectsOfType<Platform>();
                 board = new Dictionary<Position, Platform>();
+                targets = new List<TargetPlatform>();
 
                 foreach (Platform platform in platforms)
                 {
                     board.Add(platform.Position, platform);
+
+                    if (platform.GetComponent<TargetPlatform>())
+                        targets.Add(platform.GetComponent<TargetPlatform>());
                 }
             }
 
@@ -73,6 +78,17 @@ namespace Game.Controller
                     if (platform.GetComponent<TargetPlatform>())
                         platform.GetComponent<TargetPlatform>().Reset();
                 }
+            }
+
+            public bool IsAllTargetsSwitchOn ()
+            {
+                foreach (TargetPlatform target in targets)
+                {
+                    if (!target.GetSwitchStatus())
+                        return false;
+                }
+
+                return true;
             }
         #endregion
     }

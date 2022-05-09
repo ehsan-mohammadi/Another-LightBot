@@ -2,6 +2,8 @@
 
 namespace Game.Model
 {
+    using Controller;
+
     public class TargetPlatform : Platform
     {
         #region Variables
@@ -29,6 +31,9 @@ namespace Game.Model
                 Material[] materials = lastBlock.GetComponent<MeshRenderer>().materials;
                 materials[2] = isSwitchOn ? switchOn : switchOff;
                 lastBlock.GetComponent<MeshRenderer>().materials = materials;
+
+                if (BoardManager.Instance.IsAllTargetsSwitchOn())
+                    GameManager.Instance.Finish();
             }
 
             public void Reset ()
@@ -37,6 +42,11 @@ namespace Game.Model
                 Material[] materials = lastBlock.GetComponent<MeshRenderer>().materials;
                 materials[2] = isSwitchOn ? switchOn : switchOff;
                 lastBlock.GetComponent<MeshRenderer>().materials = materials;
+            }
+
+            public bool GetSwitchStatus ()
+            {
+                return isSwitchOn;
             }
         #endregion
     }
