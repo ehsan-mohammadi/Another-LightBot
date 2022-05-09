@@ -10,29 +10,40 @@ namespace Game.Controller
     {
         #region Variables
             [SerializeField]
-            private float speed = 5f;
-
-            [SerializeField]
             internal Position currentPosition;
 
             [SerializeField]
             internal Direction currentDirection = Direction.FORWARD;
 
-            internal enum Direction { FORWARD, BACKWARD, LEFT, RIGHT }
+            internal enum Direction { FORWARD, BACKWARD, LEFT, RIGHT };
+            private float threshold = 0.05f;
+            private float deltaTime = 0.125f;
+            private Position initialPlatformPosition;
+            private Vector3 initialWorldPosition;
         #endregion
 
         #region Methods
-            internal System.Collections.IEnumerator Walk (Position nextPosition)
+            private void Awake ()
             {
-                Vector3 targetPosition = BoardManager.Instance.GetPlatformPosition(nextPosition);
+                initialPlatformPosition = currentPosition;
+                initialWorldPosition = this.transform.position;
+            }
 
-                while ((this.transform.position - targetPosition).magnitude > 0.05f)
+            internal void Reset ()
+            {
+                this.transform.position = initialWorldPosition;
+                currentPosition = initialPlatformPosition;
+            }
+
+            internal System.Collections.IEnumerator Walk (Position nextPosition, Vector3 platformWorldPosition)
+            {
+                while ((this.transform.position - platformWorldPosition).magnitude > threshold)
                 {
-                    this.transform.position = Vector3.Lerp(this.transform.position, targetPosition, 0.125f);
+                    this.transform.position = Vector3.Lerp(this.transform.position, platformWorldPosition, deltaTime);
                     yield return new WaitForFixedUpdate();
                 }
 
-                this.transform.position = targetPosition;
+                this.transform.position = platformWorldPosition;
                 currentPosition = nextPosition;
                 yield return new WaitForFixedUpdate();
             }

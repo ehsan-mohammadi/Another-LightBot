@@ -14,9 +14,13 @@ namespace Game.Controller.Operation
         #region Methods
             private void Awake ()
             {
-                botController = GameObject.FindObjectOfType<BotController>();
+                Initialize();
             }
 
+            public void Initialize ()
+            {
+                botController = GameObject.FindObjectOfType<BotController>();
+            }
             public abstract bool IsValid ();
             public abstract IEnumerator Run ();
         #endregion

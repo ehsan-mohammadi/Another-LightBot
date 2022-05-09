@@ -10,6 +10,12 @@ namespace Game.UI
             [SerializeField]
             private Transform mainProc;
 
+            [SerializeField]
+            private GameObject buttonRun;
+
+            [SerializeField]
+            private GameObject buttonReset;
+
             public static UIHandler Instance;
         #endregion
 
@@ -39,6 +45,19 @@ namespace Game.UI
             public void Run ()
             {
                 GameManager.Instance.RunCode();
+                ShowHideRunButton(false);
+            }
+
+            public void Reset ()
+            {
+                GameManager.Instance.ResetCode();
+                ShowHideRunButton(true);
+            }
+
+            private void ShowHideRunButton (bool isShow)
+            {
+                buttonRun.SetActive(isShow);
+                buttonReset.SetActive(!isShow);
             }
         #endregion
     }

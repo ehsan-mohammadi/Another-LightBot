@@ -14,7 +14,6 @@ namespace Game.Controller.Operation
 
             public override IEnumerator Run ()
             {
-                UnityEngine.Debug.Log("HEY!");
                 Position nextPosition = botController.currentPosition;
 
                 switch (botController.currentDirection)
@@ -35,7 +34,9 @@ namespace Game.Controller.Operation
                         break;
                 }
 
-                yield return botController.Walk(nextPosition);
+                if (BoardManager.Instance.IsPlatformExists(nextPosition))
+                    yield return botController.Walk(nextPosition
+                        , BoardManager.Instance.GetPlatformWorldPosition(nextPosition));
             }
         #endregion
     }

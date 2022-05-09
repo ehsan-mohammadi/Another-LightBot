@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Linq;
 using System.Collections.Generic;
 
 namespace Game.Controller
@@ -34,9 +33,14 @@ namespace Game.Controller
                 }
             }
 
-            public Vector3 GetPlatformPosition (Position position)
+            public bool IsPlatformExists (Position position)
             {
-                if (board.Keys.Contains(position))
+                return board.ContainsKey(position);
+            }
+
+            public Vector3 GetPlatformWorldPosition (Position position)
+            {
+                if (IsPlatformExists(position))
                     return board[position].transform.position;
                 
                 return -Vector3.one;

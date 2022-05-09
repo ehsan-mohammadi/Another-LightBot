@@ -31,9 +31,22 @@ namespace Game.Controller
                 botOperations.Remove(operation);
             }
 
+            public void ResetCode ()
+            {
+                StartCoroutine(DoResetCode());
+            }
+
             public void RunCode ()
             {
                 StartCoroutine(DoRunCode());
+            }
+
+            private System.Collections.IEnumerator DoResetCode ()
+            {
+                ResetOperation resetOperation = new ResetOperation();
+                resetOperation.Initialize();
+                yield return resetOperation.Run();
+                StopAllCoroutines();
             }
 
             private System.Collections.IEnumerator DoRunCode ()
