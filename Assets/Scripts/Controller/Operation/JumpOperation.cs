@@ -6,15 +6,14 @@ namespace Game.Controller.Operation
 
     public class JumpOperation : BotOperation
     {
+        #region Variables
+            private Position nextPosition;
+        #endregion
+
         #region Methods
             public override bool IsValid ()
             {
-                return true;
-            }
-
-            public override IEnumerator Run ()
-            {
-                Position nextPosition = botController.currentPosition;
+                nextPosition = botController.currentPosition;
 
                 switch (botController.currentDirection)
                 {
@@ -34,7 +33,12 @@ namespace Game.Controller.Operation
                         break;
                 }
 
-                if (BoardManager.Instance.PlatformIsExists(nextPosition))
+                return BoardManager.Instance.PlatformIsExists(nextPosition);
+            }
+
+            public override IEnumerator Run ()
+            {
+                if (IsValid())
                 {
                     Platform currentPlatform = BoardManager.Instance.GetPlatform(botController.currentPosition);
                     Platform nextPlatform = BoardManager.Instance.GetPlatform(nextPosition);

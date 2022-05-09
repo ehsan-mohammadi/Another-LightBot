@@ -6,17 +6,23 @@ namespace Game.Controller.Operation
 
     public class SwitchOperation : BotOperation
     {
+        #region Variables
+            TargetPlatform targetPlatform;
+        #endregion
+
         #region Methods
             public override bool IsValid ()
             {
-                return true;
+                targetPlatform = BoardManager.Instance.GetTargetPlatform(botController.currentPosition);
+
+                if (targetPlatform)
+                    return true;
+                return false;
             }
 
             public override IEnumerator Run ()
             {
-                TargetPlatform targetPlatform = BoardManager.Instance.GetTargetPlatform(botController.currentPosition);
-
-                if (targetPlatform)
+                if (IsValid())
                     yield return botController.Switch(targetPlatform);
             }
         #endregion
