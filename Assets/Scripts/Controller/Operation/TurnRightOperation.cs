@@ -2,7 +2,7 @@
 
 namespace Game.Controller.Operation
 {
-    public class ResetOperation : BotOperation
+    public class TurnRightOperation : BotOperation
     {
         #region Methods
             public override bool IsValid ()
@@ -12,8 +12,7 @@ namespace Game.Controller.Operation
 
             public override IEnumerator Run ()
             {
-                botController.Reset();
-                yield return null;
+                yield return botController.TurnRight();
             }
         #endregion
     }

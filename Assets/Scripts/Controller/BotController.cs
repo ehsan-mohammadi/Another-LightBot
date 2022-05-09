@@ -20,6 +20,7 @@ namespace Game.Controller
             private float deltaTime = 0.125f;
             private Position initialPlatformPosition;
             private Vector3 initialWorldPosition;
+            private Vector3 initialWorldRotation;
         #endregion
 
         #region Methods
@@ -27,11 +28,13 @@ namespace Game.Controller
             {
                 initialPlatformPosition = currentPosition;
                 initialWorldPosition = this.transform.position;
+                initialWorldRotation = this.transform.eulerAngles;
             }
 
             internal void Reset ()
             {
                 this.transform.position = initialWorldPosition;
+                this.transform.eulerAngles = initialWorldRotation;
                 currentPosition = initialPlatformPosition;
             }
 
@@ -45,6 +48,32 @@ namespace Game.Controller
 
                 this.transform.position = platformWorldPosition;
                 currentPosition = nextPosition;
+                yield return new WaitForFixedUpdate();
+            }
+
+            internal System.Collections.IEnumerator TurnRight ()
+            {
+                Vector3 targetAngles = this.transform.eulerAngles + new Vector3(0, 90, 0);
+                while ((this.transform.eulerAngles - targetAngles).magnitude > threshold)
+                {
+                    this.transform.eulerAngles = Vector3.Lerp(this.transform.eulerAngles, targetAngles, deltaTime);
+                    yield return new WaitForFixedUpdate();
+                }
+
+                this.transform.eulerAngles = targetAngles;
+                yield return new WaitForFixedUpdate();
+            }
+
+            internal System.Collections.IEnumerator TurnLeft ()
+            {
+                Vector3 targetAngles = this.transform.eulerAngles - new Vector3(0, 90, 0);
+                while ((this.transform.eulerAngles - targetAngles).magnitude > threshold)
+                {
+                    this.transform.eulerAngles = Vector3.Lerp(this.transform.eulerAngles, targetAngles, deltaTime);
+                    yield return new WaitForFixedUpdate();
+                }
+
+                this.transform.eulerAngles = targetAngles;
                 yield return new WaitForFixedUpdate();
             }
         #endregion
