@@ -86,6 +86,19 @@ namespace Game.Controller
                 targetPlatform.Switch();
                 yield return new WaitForFixedUpdate();
             }
+
+            internal System.Collections.IEnumerator Jump (Position nextPosition, Vector3 lastPlatformBlockPosition)
+            {
+                while ((this.transform.position - lastPlatformBlockPosition).magnitude > threshold)
+                {
+                    this.transform.position = Vector3.Lerp(this.transform.position, lastPlatformBlockPosition, deltaTime);
+                    yield return new WaitForFixedUpdate();
+                }
+
+                this.transform.position = lastPlatformBlockPosition;
+                currentPosition = nextPosition;
+                yield return new WaitForFixedUpdate();
+            }
         #endregion
     }
 }

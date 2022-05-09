@@ -15,7 +15,7 @@ namespace Game.Model
             private GameObject block;
             
             protected static readonly Vector3 offset = new Vector3(0, 0.5f, 0);
-            protected GameObject lastBlock;
+            public GameObject lastBlock;
         #endregion
 
         #region SetterGetters
