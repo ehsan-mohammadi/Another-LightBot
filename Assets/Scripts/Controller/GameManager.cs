@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections.Generic;
 
 namespace Game.Controller
 {
@@ -9,9 +8,19 @@ namespace Game.Controller
     public class GameManager : MonoBehaviour
     {
         #region Variables
-            private Procedure mainProcedure = new Procedure();
+            [SerializeField]
+            private int subProcCount = 0;
 
+            private Procedure mainProcedure = new Procedure();
+            private Procedure[] subProcedures;
             public static GameManager Instance;
+        #endregion
+
+        #region SetterGetters
+            internal Procedure[] SubProcedures
+            {
+                get { return subProcedures; }
+            }
         #endregion
 
         #region Methods
@@ -20,6 +29,17 @@ namespace Game.Controller
                 if (Instance != null)
                     Destroy(this.gameObject);
                 Instance = this;
+
+                Initialize();
+            }
+
+            private void Initialize ()
+            {
+                subProcedures = new Procedure[subProcCount];
+                for (int i = 0; i < subProcedures.Length; i++)
+                {
+                    subProcedures[i] = new Procedure();
+                }
             }
 
             public void AddOperation (BotOperation operation)
@@ -30,6 +50,16 @@ namespace Game.Controller
             public void RemoveOperation (BotOperation operation)
             {
                 mainProcedure.Remove(operation);
+            }
+
+            public void AddOperationInSubProcedure (BotOperation operation, int subProcIndex)
+            {
+                subProcedures[subProcIndex].Add(operation);
+            }
+
+            public void RemoveOperationFromSubProcedure (BotOperation operation, int subProcIndex)
+            {
+                subProcedures[subProcIndex].Remove(operation);
             }
 
             public void ResetCode ()
