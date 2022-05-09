@@ -33,14 +33,14 @@ namespace Game.Controller
                 }
             }
 
-            public bool IsPlatformExists (Position position)
+            public bool PlatformIsExists (Position position)
             {
                 return board.ContainsKey(position);
             }
 
             public Vector3 GetPlatformWorldPosition (Position position)
             {
-                if (IsPlatformExists(position))
+                if (PlatformIsExists(position))
                     return board[position].transform.position;
                 
                 return -Vector3.one;
@@ -48,7 +48,7 @@ namespace Game.Controller
 
             public Platform GetPlatform (Position position)
             {
-                if (IsPlatformExists(position))
+                if (PlatformIsExists(position))
                     return board[position];
                 
                 return null;
@@ -56,7 +56,7 @@ namespace Game.Controller
 
             public TargetPlatform GetTargetPlatform (Position position)
             {
-                if (IsPlatformExists(position))
+                if (PlatformIsExists(position))
                 {
                     Platform platform = board[position];
                     if (platform.GetComponent<TargetPlatform>())

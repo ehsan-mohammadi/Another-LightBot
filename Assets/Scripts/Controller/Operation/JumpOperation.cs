@@ -34,7 +34,7 @@ namespace Game.Controller.Operation
                         break;
                 }
 
-                if (BoardManager.Instance.IsPlatformExists(nextPosition))
+                if (BoardManager.Instance.PlatformIsExists(nextPosition))
                 {
                     Platform currentPlatform = BoardManager.Instance.GetPlatform(botController.currentPosition);
                     Platform nextPlatform = BoardManager.Instance.GetPlatform(nextPosition);
